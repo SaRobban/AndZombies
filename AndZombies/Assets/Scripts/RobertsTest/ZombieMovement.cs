@@ -144,7 +144,7 @@ public class ZombieMovement : MonoBehaviour
             //Use gravityScale?
             constantJumpForce -= jumpLoss * Time.fixedDeltaTime;
             grounded = false;
-            rb2d.AddForce(Vector2.up * constantJumpForce, ForceMode2D.Force);
+            rb2d.AddForce(Vector2.up * constantJumpForce + Vector2.right, ForceMode2D.Force);
         }
         if(rb2d.velocity.y < 0)
         {
