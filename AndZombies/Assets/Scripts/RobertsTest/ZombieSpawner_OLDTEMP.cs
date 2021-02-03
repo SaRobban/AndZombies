@@ -22,7 +22,7 @@ public class ZombieSpawner_OLDTEMP : MonoBehaviour
             if (zombieNumber < maxZombies + 1)
             {
                 GameObject clone = Instantiate(zombieClone, transform.position, transform.rotation);
-                clone.GetComponent<ZombieMovement>().spawner = this;
+                //clone.GetComponent<ZombieMovement>().spawner = this;
                 zombieNumber++;
             }
             else
