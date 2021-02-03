@@ -10,9 +10,9 @@ public class ZombieController : MonoBehaviour
 
     
     [Header("Alternating Values")]
-    public GameObject currentZombie;
-    public float freezeTimer = 0;
-    public int spawnedZombies = 0;
+    public GameObject currentZombie; // the current zombie to control
+    public float freezeTimer = 0; // the timer before the next zombie spawns
+    public int spawnedZombies = 0; // amount of spawned zombies
 
     [Header("Set Values")]
     public GameObject zombiePrefab;
@@ -41,9 +41,8 @@ public class ZombieController : MonoBehaviour
         // add 1 to spawned zombies count
         // set freezeTimer;
         currentZombie = zombiePool.GetObject();
-        currentZombie.SetActive(true);
         currentZombie.transform.position = spawnTransform.position;
-
+        currentZombie.SetActive(true);
         zombieMovementScript = currentZombie.GetComponent<ZombieMovement>();
 
         // safety measure

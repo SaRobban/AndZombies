@@ -263,7 +263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9077788681314939964, guid: 41bc447ea3763044aa47c294efb649f8, type: 3}
       propertyPath: timeBeforeFreezing
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41bc447ea3763044aa47c294efb649f8, type: 3}

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class ZombieMovement : MonoBehaviour
 {
     [Header("Stuff")]
@@ -75,7 +75,7 @@ public class ZombieMovement : MonoBehaviour
 
     void Update()
     {
-        print(Input.mousePosition.x);
+        //print(Input.mousePosition.x);
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
@@ -84,7 +84,37 @@ public class ZombieMovement : MonoBehaviour
         {
             jump = false;
         }
+    }
 
+    public void JumpAction(InputAction.CallbackContext context)
+    {
+            
+        if (context.performed) // jump button is pressed/held
+        {
+            // add jump functionality
+        }
+
+        else if (context.canceled) // jump button is released
+        {
+            
+        }
+    }
+
+    private float inputAxis;
+
+    public void RotateZombieAction(InputAction.CallbackContext context)
+    {
+        // when A or D is pressed it returns a float ranging from -1 to 1,
+        // which is passed into the inputAxis variable
+        inputAxis = context.ReadValue<float>(); 
+    }
+
+    Vector2 mousePosition;
+
+    public void GetMouseX(InputAction.CallbackContext context)
+    {
+        // get the vector2 of the mouse
+        mousePosition = context.ReadValue<Vector2>();
     }
 
     // Update is called once per frame
@@ -177,7 +207,7 @@ public class ZombieMovement : MonoBehaviour
     {
         if (aircontroll)
         {
-            float inputKeyMouse = mouseInputToAxis() * airRotationSpeedMouse + Input.GetAxis("Horizontal") * airRotationSpeedKey;
+            float inputKeyMouse = mousePosition.x * airRotationSpeedMouse + inputAxis * airRotationSpeedKey;
             transform.rotation *= Quaternion.Euler(0, 0, inputKeyMouse * Time.fixedDeltaTime);
         }
         else
