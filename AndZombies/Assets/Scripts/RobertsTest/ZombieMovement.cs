@@ -9,7 +9,6 @@ public class ZombieMovement : MonoBehaviour
 
     public enum zombieStates { Start, Walk, JumpStart, Jump, Fall, Hit }; //<- Diffrent zombie states used
     public zombieStates zombieState = zombieStates.Start;
-    private bool grounded;
     private bool jump;
     private float axis;
 
@@ -33,6 +32,14 @@ public class ZombieMovement : MonoBehaviour
     public RigidbodyConstraints2D onJumping;
     public RigidbodyConstraints2D onHitAfterJump;
 
+    [Header ("Grounded Test")]
+    float groundedIfAngle = 45;
+    float hitAWallAngle = 45;
+    private bool isGrounded;
+    private bool hitAWall;
+    private bool calledIe;
+
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         //IF we made are jumping or falling but not holding the jumpbutton...
@@ -40,9 +47,38 @@ public class ZombieMovement : MonoBehaviour
         //Then Spawn new zombie (if we havent already).
         if (zombieState == zombieStates.Fall || zombieState == zombieStates.Jump && !jump)
         {
-            if (collision.gameObject.GetComponent<Rigidbody2D>())
+            //Check if grounded by Cos angels
+            foreach (ContactPoint2D contact in collision.contacts)
             {
-                AddJoint(collision.gameObject.GetComponent<Rigidbody2D>());
+                if (contact.normal.y > groundedIfAngle)
+                    isGrounded = true;
+
+                if (contact.normal.x < -hitAWallAngle)
+                    hitAWall = true;
+
+                //Debug.DrawRay(contact.point, contact.normal*50, Color.white,0.1f);
+            }
+            StartCoroutine(AddLink(collision.collider.gameObject));
+            calledIe = true;
+        }
+    }
+    IEnumerator AddLink(GameObject otherObj)
+    {
+        yield return null;
+       
+        if(isGrounded && !hitAWall)
+        {
+            zombieState = zombieStates.Walk;
+            Debug.DrawRay(transform.position, Vector3.up, Color.green, Time.fixedDeltaTime);
+        }
+        else
+        {
+            
+            Debug.DrawRay(transform.position, Vector3.up, Color.red, Time.fixedDeltaTime);
+            
+            if (otherObj.gameObject.GetComponent<Rigidbody2D>())
+            {
+                AddJoint(otherObj.gameObject.GetComponent<Rigidbody2D>());
             }
             else
             {
@@ -51,22 +87,14 @@ public class ZombieMovement : MonoBehaviour
 
             if (!spawnedNew)
             {
-                ZombieController.Instance.SpawnZombie();
+                //ZombieController.Instance.SpawnZombie();
                 spawnedNew = true;
             }
+            
         }
-
-        if (rb2d.velocity.y < 0)
-        {
-            grounded = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        //IF rb is moving up we are not grounded.
-        if (rb2d.velocity.y > 0)
-            grounded = false;
+        isGrounded = false;
+        hitAWall = false;
+        calledIe = false;
     }
 
     // Start is called before the first frame update
@@ -75,6 +103,11 @@ public class ZombieMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.velocity = Vector2.right * walkspeed;
         rb2d.constraints = onWalking;
+
+
+        //Grunded test
+        groundedIfAngle = Mathf.Cos(groundedIfAngle);
+        hitAWallAngle = Mathf.Sin(hitAWallAngle);
     }
 
 
@@ -138,6 +171,7 @@ public class ZombieMovement : MonoBehaviour
         Vector2 modVel = rb2d.velocity;
         modVel.x = walkspeed * axis;
         rb2d.velocity = modVel;
+        transform.up = Vector3.up;
 
         if (jump)
         {
@@ -147,7 +181,6 @@ public class ZombieMovement : MonoBehaviour
 
     void JumpZombie()
     {
-        grounded = false;
         rb2d.constraints = onJumping;
         rb2d.AddForce(Vector2.up * initJumpForce, ForceMode2D.Impulse);
         //rb2d.AddTorque(jumpTorque);
@@ -159,7 +192,6 @@ public class ZombieMovement : MonoBehaviour
         {
             //Use gravityScale?
             constantJumpForce -= jumpLoss * Time.fixedDeltaTime;
-            grounded = false;
 
             rb2d.AddForce(Vector2.up * constantJumpForce + Vector2.right, ForceMode2D.Force);
             if (xVelocityWhileHoldSpace)
