@@ -58,10 +58,12 @@ public class ZombieController : MonoBehaviour
 
     public void SpawnZombie()
     {
-        // get a zombie from the pool, activate it and set it at the spawn position
-        // add 1 to spawned zombies count
-        // set freezeTimer;
-        currentZombie = zombiePool.GetObject();
+        if (spawnedZombies != maxZombieCount)
+        {
+            // get a zombie from the pool, activate it and set it at the spawn position
+            // add 1 to spawned zombies count
+            // set freezeTimer;
+            currentZombie = zombiePool.GetObject();
         currentZombie.transform.position = spawnTransform.position;
         currentZombie.SetActive(true);
         zombieMovementScript = currentZombie.GetComponent<ZombieMovement>();
@@ -72,6 +74,14 @@ public class ZombieController : MonoBehaviour
 
         spawnedZombies++; 
         freezeTimer = timeBeforeFreezing;
+        }
+
+        else
+
+        {
+            Debug.Log("No Zombies Left to Spawn");
+            // TODO: having the game over menu show up
+        }
     }
 
     private void Timer()
@@ -88,16 +98,7 @@ public class ZombieController : MonoBehaviour
                 // when the timer reaches zero, spawn a new zombie
                 if (freezeTimer == 0)
                 {
-                    if (spawnedZombies != maxZombieCount)
-                    {
-                        SpawnZombie();
-                    }
-
-                    else
-                    {
-                        Debug.Log("No Zombies Left to Spawn");
-                        // TODO: having the game over menu show up
-                    }
+                    SpawnZombie();
                 }
             }
         }
