@@ -58,11 +58,11 @@ public class ZombieMovement : MonoBehaviour
 
                 //Debug.DrawRay(contact.point, contact.normal*50, Color.white,0.1f);
             }
-            StartCoroutine(AddLink(collision.collider.gameObject));
+            StartCoroutine(AddLinkToColliderOrRise(collision.collider.gameObject));
             calledIe = true;
         }
     }
-    IEnumerator AddLink(GameObject otherObj)
+    IEnumerator AddLinkToColliderOrRise(GameObject otherObj)
     {
         yield return null;
        
@@ -87,10 +87,11 @@ public class ZombieMovement : MonoBehaviour
 
             if (!spawnedNew)
             {
-                //ZombieController.Instance.SpawnZombie();
+                ZombieController.Instance.SpawnZombie();
                 spawnedNew = true;
             }
             
+            zombieState = zombieStates.Hit;
         }
         isGrounded = false;
         hitAWall = false;
@@ -171,7 +172,7 @@ public class ZombieMovement : MonoBehaviour
         Vector2 modVel = rb2d.velocity;
         modVel.x = walkspeed * axis;
         rb2d.velocity = modVel;
-        transform.up = Vector3.up;
+       // transform.up = Vector3.up;
 
         if (jump)
         {
@@ -231,7 +232,7 @@ public class ZombieMovement : MonoBehaviour
     //Add a Joint between two rigidbodys
     void AddJoint(Rigidbody2D otherBody)
     {
-        zombieState = zombieStates.Hit;
+        
         if (otherBody != null)
         {
             //print("Zombie Joint");
