@@ -6,7 +6,7 @@ public class ZombieMovement : MonoBehaviour
 {
     [Header("Stuff")]
     public Rigidbody2D rb2d;
-    public ZombieSpawner spawner;
+    public ZombieSpawner_OLDTEMP spawner;
     public enum zombieStates { Start, Walk, JumpStart, Jump, Fall, Hit };
     public zombieStates zombieState = zombieStates.Start;
     private bool grounded;
@@ -75,7 +75,7 @@ public class ZombieMovement : MonoBehaviour
 
     void Update()
     {
-        print(Input.mousePosition.x);
+        //print(Input.mousePosition.x);
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
+//Simple script. prints input to TextmeshPro UI text
 public class PrintToIngameUI : MonoBehaviour
 {
     public TextMeshProUGUI playerInfo;
