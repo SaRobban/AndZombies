@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class ZombieSpawner : MonoBehaviour
+public class ZombieSpawner_OLDTEMP : MonoBehaviour
 {
     public int maxZombies = 10;
     public int zombieNumber;
     public GameObject zombieClone;
-
     public bool stopSpawning;
 
     // Start is called before the first frame update
