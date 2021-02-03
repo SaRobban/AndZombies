@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class WinThelevel : MonoBehaviour
 {
+    private void Start()
+    {
+        Camera.main.GetComponent<Resorces>().winTheLevel = this;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("You get to eat");
         print("YOU GET TO EAT \n Player has won the level");
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Resorces res = Camera.main.GetComponent<Resorces>();
+        res.zSpawner.stopSpawning = true;
+        res.printToUI.PrintToDefault("You get To eat!");
     }
+   
 }

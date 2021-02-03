@@ -1,36 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 public class ZombieSpawner : MonoBehaviour
 {
     public int maxZombies = 10;
     public int zombieNumber;
     public GameObject zombieClone;
 
-    public TextMeshProUGUI uiText;
+    public bool stopSpawning;
+
     // Start is called before the first frame update
     private void Start()
     {
+        Camera.main.GetComponent<Resorces>().zSpawner = this;
         SpawnZombie();
     }
 
     public void SpawnZombie()
     {
-        if (zombieNumber<maxZombies+1)
+        if (!stopSpawning)
         {
-            GameObject clone = Instantiate(zombieClone, transform.position, transform.rotation);
-            clone.GetComponent<ZombieMovement>().spawner = this;
-            zombieNumber++;
+            if (zombieNumber < maxZombies + 1)
+            {
+                GameObject clone = Instantiate(zombieClone, transform.position, transform.rotation);
+                clone.GetComponent<ZombieMovement>().spawner = this;
+                zombieNumber++;
+            }
+            else
+            {
+                print("GameOver");
+            }
+            UpdateUI();
         }
-        else
-        {
-            print("GameOver");
-        }
-
-        UpdateUI();
     }
    void UpdateUI() {
-        uiText.text = "Zombie : " + zombieNumber + " / " + maxZombies;
+        Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("Zombie : " + zombieNumber + " / " + maxZombies);
     }
 }
