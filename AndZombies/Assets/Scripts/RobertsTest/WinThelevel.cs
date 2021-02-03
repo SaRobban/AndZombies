@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinThelevel : MonoBehaviour
 {
-    private void Start()
-    {
-        Camera.main.GetComponent<Resorces>().winTheLevel = this;
-    }
+    public float timeToRestart = 3;
+    public GameObject stars;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("You get to eat");
-        print("YOU GET TO EAT \n Player has won the level");
+        Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("You get To eat!");
+        StartCoroutine(waitForRestart());
 
-        Resorces res = Camera.main.GetComponent<Resorces>();
-        res.zSpawner.stopSpawning = true;
-        res.printToUI.PrintToDefault("You get To eat!");
+        Instantiate(stars, transform.position, Quaternion.identity);
     }
-   
+
+   IEnumerator waitForRestart()
+    {
+        yield return new WaitForSeconds(timeToRestart);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
