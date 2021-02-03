@@ -64,16 +64,16 @@ public class ZombieController : MonoBehaviour
             // add 1 to spawned zombies count
             // set freezeTimer;
             currentZombie = zombiePool.GetObject();
-        currentZombie.transform.position = spawnTransform.position;
-        currentZombie.SetActive(true);
-        zombieMovementScript = currentZombie.GetComponent<ZombieMovement>();
+            currentZombie.transform.position = spawnTransform.position;
+            currentZombie.SetActive(true);
+            zombieMovementScript = currentZombie.GetComponent<ZombieMovement>();
 
-        // safety measure
-        zombieMovementScript.zombieState = ZombieMovement.zombieStates.Start;
-        
+            // safety measure
+            zombieMovementScript.zombieState = ZombieMovement.zombieStates.Start;
 
-        spawnedZombies++; 
-        freezeTimer = timeBeforeFreezing;
+
+            spawnedZombies++;
+            freezeTimer = timeBeforeFreezing;
         }
 
         else
@@ -94,7 +94,7 @@ public class ZombieController : MonoBehaviour
             if (freezeTimer < 0)
             {
                 freezeTimer = 0;
-            
+
                 // when the timer reaches zero, spawn a new zombie
                 if (freezeTimer == 0)
                 {
