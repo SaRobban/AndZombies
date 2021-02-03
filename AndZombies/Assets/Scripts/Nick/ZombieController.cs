@@ -56,6 +56,11 @@ public class ZombieController : MonoBehaviour
         }
     }
 
+    void PrintZombieCount()
+    {
+        Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("ZombieCount : " + spawnedZombies + " / " + maxZombieCount);
+    }
+
     public void SpawnZombie()
     {
         if (spawnedZombies != maxZombieCount)
@@ -82,6 +87,8 @@ public class ZombieController : MonoBehaviour
             Debug.Log("No Zombies Left to Spawn");
             // TODO: having the game over menu show up
         }
+
+        PrintZombieCount();
     }
 
     private void Timer()
