@@ -71,8 +71,8 @@ public class ZombieController : MonoBehaviour
             // safety measure
             zombieMovementScript.zombieState = ZombieMovement.zombieStates.Start;
 
-
             spawnedZombies++;
+
             freezeTimer = timeBeforeFreezing;
         }
 
