@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class ZombieSpawner : MonoBehaviour
 {
     public int maxZombies = 10;
+    public int zombieNumber;
     public GameObject zombieClone;
+
+    public TextMeshProUGUI uiText;
     // Start is called before the first frame update
     private void Start()
     {
@@ -14,20 +17,20 @@ public class ZombieSpawner : MonoBehaviour
 
     public void SpawnZombie()
     {
-        if (maxZombies > 0)
+        if (zombieNumber<maxZombies+1)
         {
             GameObject clone = Instantiate(zombieClone, transform.position, transform.rotation);
             clone.GetComponent<ZombieMovement>().spawner = this;
+            zombieNumber++;
         }
         else
         {
             print("GameOver");
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        UpdateUI();
+    }
+   void UpdateUI() {
+        uiText.text = "Zombie : " + zombieNumber + " / " + maxZombies;
     }
 }
