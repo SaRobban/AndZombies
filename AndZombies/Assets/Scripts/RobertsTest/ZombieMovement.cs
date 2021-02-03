@@ -69,10 +69,15 @@ public class ZombieMovement : MonoBehaviour
         // Time.timeScale = 0.25f;
     }
 
-    public void InputControls(float axis, bool jump)
+    public void InputControls(float a, bool j)
     {
-        this.jump = jump;
-        this.axis = axis;
+        this.jump = j;
+        this.axis = a;
+    }
+
+    public void Jump(bool j)
+    {
+        this.jump = j;
     }
 
     // Update is called once per frame
@@ -165,7 +170,7 @@ public class ZombieMovement : MonoBehaviour
     {
         if (aircontroll)
         {
-            transform.rotation *= Quaternion.Euler(0, 0, axis * Time.fixedDeltaTime);
+            transform.rotation *= Quaternion.Euler(0, 0,-axis * airRotationSpeedKey * Time.fixedDeltaTime);
         }
         else
         {
@@ -187,9 +192,6 @@ public class ZombieMovement : MonoBehaviour
             print("Zombie Joint");
             FixedJoint2D joint = gameObject.AddComponent<FixedJoint2D>();
             joint.connectedBody = otherBody;
-            spawner.SpawnZombie();
-
-            Destroy(gameObject.GetComponent<ZombieMovement>());
         }
     }
 }

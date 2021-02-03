@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class ReloadScene : MonoBehaviour
 {
-    void Update()
+    public void ResetScene(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
+        if(context.performed)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 }

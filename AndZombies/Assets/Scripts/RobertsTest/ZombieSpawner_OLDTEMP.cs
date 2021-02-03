@@ -11,7 +11,7 @@ public class ZombieSpawner_OLDTEMP : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Camera.main.GetComponent<Resorces>().zSpawner = this;
+        //Camera.main.GetComponent<Resorces>().zSpawner = this;
         SpawnZombie();
     }
 

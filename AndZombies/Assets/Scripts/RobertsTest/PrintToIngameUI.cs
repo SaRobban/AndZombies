@@ -10,7 +10,7 @@ public class PrintToIngameUI : MonoBehaviour
 
     private void Start()
     {
-        Camera.main.GetComponent<Resorces>().printToUI = this;
+        //Camera.main.GetComponent<Resorces>().printToUI = this;
     }
     // Start is called before the first frame update
     public void PrintToDefault(string text)
