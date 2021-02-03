@@ -136,14 +136,15 @@ MonoBehaviour:
   rb2d: {fileID: 0}
   spawner: {fileID: 0}
   zombieState: 0
-  jump: 0
-  hasJumped: 0
+  xVelocityWhileHoldSpace: 1
   initJumpForce: 5
   constantJumpForce: 5
   jumpLoss: 5
   jumpTorque: 90
   walkspeed: 5
-  grounded: 0
+  aircontroll: 1
+  airRotationSpeedKey: 60
+  airRotationSpeedMouse: 0.5
   onWalking: 4
-  onJumping: 0
-  onHitAfterJump: -1
+  onJumping: 4
+  onHitAfterJump: 0

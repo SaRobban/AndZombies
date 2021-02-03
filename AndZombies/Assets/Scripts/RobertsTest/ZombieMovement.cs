@@ -4,46 +4,57 @@ using UnityEngine;
 
 public class ZombieMovement : MonoBehaviour
 {
+    [Header("Stuff")]
     public Rigidbody2D rb2d;
     public ZombieSpawner spawner;
     public enum zombieStates { Start, Walk, JumpStart, Jump, Fall, Hit };
     public zombieStates zombieState = zombieStates.Start;
+    private bool grounded;
+    private bool jump;
 
-    public bool jump;
-    public bool hasJumped;
+    public bool xVelocityWhileHoldSpace;
+
+    [Header("Tweeks")]
     public float initJumpForce = 5f;
     public float constantJumpForce = 5f;
     public float jumpLoss = 5f;
-
     public float jumpTorque = 90f;
-
     public float walkspeed = 5f;
+    public bool aircontroll = true;
+    private float mouseOrgin;
 
-    public bool grounded;
+    public float airRotationSpeedKey = 3;
+    public float airRotationSpeedMouse = 3;
+
 
     public RigidbodyConstraints2D onWalking;
     public RigidbodyConstraints2D onJumping;
     public RigidbodyConstraints2D onHitAfterJump;
 
-
+    float mouseInputToAxis()
+    {
+        float mouseX = Input.mousePosition.x - mouseOrgin;
+       // mouseOrgin = mouseX;
+        return mouseX;
+    }
     private void OnCollisionStay2D(Collision2D collision)
     {
+
+        if (zombieState == zombieStates.Fall || zombieState == zombieStates.Jump && !jump)
+        {
+            print("Zombie hit");
+            if (collision.gameObject.GetComponent<Rigidbody2D>())
+            {
+                AddJoint(collision.gameObject.GetComponent<Rigidbody2D>());
+            }
+            else
+            {
+                rb2d.constraints = onHitAfterJump;
+            }
+        }
         if (rb2d.velocity.y < 0)
         {
             grounded = true;
-
-            if (zombieState == zombieStates.Fall)
-            {
-                print("Zombie hit");
-                if (collision.gameObject.GetComponent<Rigidbody2D>())
-                {
-                    AddJoint(collision.gameObject.GetComponent<Rigidbody2D>());
-                }
-                else
-                {
-                    rb2d.constraints = onHitAfterJump;
-                }
-            }
         }
     }
 
@@ -64,6 +75,7 @@ public class ZombieMovement : MonoBehaviour
 
     void Update()
     {
+        print(Input.mousePosition.x);
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
@@ -118,6 +130,7 @@ public class ZombieMovement : MonoBehaviour
 
     void StartZombie()
     {
+        mouseOrgin = Input.mousePosition.x;
         zombieState = zombieStates.Walk;
     }
 
@@ -134,7 +147,7 @@ public class ZombieMovement : MonoBehaviour
         grounded = false;
         rb2d.constraints = onJumping;
         rb2d.AddForce(Vector2.up * initJumpForce, ForceMode2D.Impulse);
-        rb2d.AddTorque(jumpTorque);
+        //rb2d.AddTorque(jumpTorque);
         zombieState = zombieStates.Jump;
     }
     void FlyZombie()
@@ -145,20 +158,43 @@ public class ZombieMovement : MonoBehaviour
             constantJumpForce -= jumpLoss * Time.fixedDeltaTime;
             grounded = false;
             rb2d.AddForce(Vector2.up * constantJumpForce + Vector2.right, ForceMode2D.Force);
+            if (xVelocityWhileHoldSpace)
+            {
+                Vector2 modVel = rb2d.velocity;
+                modVel.x = walkspeed;
+                rb2d.velocity = modVel;
+            }
         }
-        if(rb2d.velocity.y < 0)
+        // if (rb2d.velocity.y < 0 || !jump)
+        else
         {
             zombieState = zombieStates.Fall;
         }
-    }
 
+        AirRotationControll();
+    }
+    void AirRotationControll()
+    {
+        if (aircontroll)
+        {
+            float inputKeyMouse = mouseInputToAxis() * airRotationSpeedMouse + -Input.GetAxis("Horizontal") * airRotationSpeedKey;
+            transform.rotation *= Quaternion.Euler(0, 0, inputKeyMouse * Time.fixedDeltaTime);
+        }
+        else
+        {
+            transform.up = rb2d.velocity;
+        }
+    }
     void FallZombie()
     {
+        //Need to check if joint first maybe!?
+        AirRotationControll();
         return;
     }
 
     void AddJoint(Rigidbody2D otherBody)
     {
+        zombieState = zombieStates.Hit;
         if (otherBody != null)
         {
             print("Zombie Joint");
@@ -169,17 +205,17 @@ public class ZombieMovement : MonoBehaviour
         }
     }
 
-/*
-    bool GroundCheck()
-    {
-        //Hit self
-        // Collider2D[] colliderHit = Physics2D.OverlapCapsule(transform.position, new Vector2(1.1f, 0.55f), transform.GetComponent<CapsuleCollider2D>().direction, transform.rotation.z);
-        if (Physics2D.OverlapCapsule(transform.position, new Vector2(1.1f, 0.55f), transform.GetComponent<CapsuleCollider2D>().direction, transform.rotation.z))
+    /*
+        bool GroundCheck()
         {
-            print("CheckOverlap");
-            return true;
+            //Hit self
+            // Collider2D[] colliderHit = Physics2D.OverlapCapsule(transform.position, new Vector2(1.1f, 0.55f), transform.GetComponent<CapsuleCollider2D>().direction, transform.rotation.z);
+            if (Physics2D.OverlapCapsule(transform.position, new Vector2(1.1f, 0.55f), transform.GetComponent<CapsuleCollider2D>().direction, transform.rotation.z))
+            {
+                print("CheckOverlap");
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
-*/
+    */
 }

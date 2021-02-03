@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ZombieSpawner : MonoBehaviour
 {
-    public int maxZombies = 20;
+    public int maxZombies = 10;
     public GameObject zombieClone;
     // Start is called before the first frame update
     private void Start()
