@@ -177,7 +177,7 @@ public class ZombieMovement : MonoBehaviour
     {
         if (aircontroll)
         {
-            float inputKeyMouse = mouseInputToAxis() * airRotationSpeedMouse + -Input.GetAxis("Horizontal") * airRotationSpeedKey;
+            float inputKeyMouse = mouseInputToAxis() * airRotationSpeedMouse + Input.GetAxis("Horizontal") * airRotationSpeedKey;
             transform.rotation *= Quaternion.Euler(0, 0, inputKeyMouse * Time.fixedDeltaTime);
         }
         else
