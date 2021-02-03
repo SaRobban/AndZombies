@@ -26,6 +26,9 @@ public class ZombieMovement : MonoBehaviour
     public float airRotationSpeedKey = 3;
 
 
+    private bool spawnedNew;
+
+
     public RigidbodyConstraints2D onWalking;
     public RigidbodyConstraints2D onJumping;
     public RigidbodyConstraints2D onHitAfterJump;
@@ -34,7 +37,7 @@ public class ZombieMovement : MonoBehaviour
     {
         //IF we made are jumping or falling but not holding the jumpbutton...
         //We stick to whatever hit by adding a joint or freeze the constraints...
-        //Then Spawn new zombie.
+        //Then Spawn new zombie (if we havent already).
         if (zombieState == zombieStates.Fall || zombieState == zombieStates.Jump && !jump)
         {
             if (collision.gameObject.GetComponent<Rigidbody2D>())
@@ -45,9 +48,13 @@ public class ZombieMovement : MonoBehaviour
             {
                 rb2d.constraints = onHitAfterJump;
             }
-            ZombieController.Instance.SpawnZombie();
-        }
 
+            if (!spawnedNew)
+            {
+                ZombieController.Instance.SpawnZombie();
+                spawnedNew = true;
+            }
+        }
 
         if (rb2d.velocity.y < 0)
         {
