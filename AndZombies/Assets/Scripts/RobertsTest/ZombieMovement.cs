@@ -7,10 +7,13 @@ public class ZombieMovement : MonoBehaviour
     [Header("Stuff")]
     public Rigidbody2D rb2d;
     public ZombieSpawner_OLDTEMP spawner;
+
+
     public enum zombieStates { Start, Walk, JumpStart, Jump, Fall, Hit };
     public zombieStates zombieState = zombieStates.Start;
     private bool grounded;
     private bool jump;
+    private float axis;
 
     public bool xVelocityWhileHoldSpace;
 
@@ -31,15 +34,8 @@ public class ZombieMovement : MonoBehaviour
     public RigidbodyConstraints2D onJumping;
     public RigidbodyConstraints2D onHitAfterJump;
 
-    float mouseInputToAxis()
-    {
-        float mouseX = Input.mousePosition.x - mouseOrgin;
-       // mouseOrgin = mouseX;
-        return mouseX;
-    }
     private void OnCollisionStay2D(Collision2D collision)
     {
-
         if (zombieState == zombieStates.Fall || zombieState == zombieStates.Jump && !jump)
         {
             print("Zombie hit");
@@ -73,48 +69,10 @@ public class ZombieMovement : MonoBehaviour
         // Time.timeScale = 0.25f;
     }
 
-    void Update()
+    public void InputControls(float axis, bool jump)
     {
-        //print(Input.mousePosition.x);
-        if (Input.GetButtonDown("Jump"))
-        {
-            jump = true;
-        }
-        if (Input.GetButtonUp("Jump"))
-        {
-            jump = false;
-        }
-    }
-
-    public void JumpAction(InputAction.CallbackContext context)
-    {
-            
-        if (context.performed) // jump button is pressed/held
-        {
-            // add jump functionality
-        }
-
-        else if (context.canceled) // jump button is released
-        {
-            
-        }
-    }
-
-    private float inputAxis;
-
-    public void RotateZombieAction(InputAction.CallbackContext context)
-    {
-        // when A or D is pressed it returns a float ranging from -1 to 1,
-        // which is passed into the inputAxis variable
-        inputAxis = context.ReadValue<float>(); 
-    }
-
-    Vector2 mousePosition;
-
-    public void GetMouseX(InputAction.CallbackContext context)
-    {
-        // get the vector2 of the mouse
-        mousePosition = context.ReadValue<Vector2>();
+        this.jump = jump;
+        this.axis = axis;
     }
 
     // Update is called once per frame
@@ -160,7 +118,6 @@ public class ZombieMovement : MonoBehaviour
 
     void StartZombie()
     {
-        mouseOrgin = Input.mousePosition.x;
         zombieState = zombieStates.Walk;
     }
 
@@ -187,6 +144,7 @@ public class ZombieMovement : MonoBehaviour
             //Use gravityScale?
             constantJumpForce -= jumpLoss * Time.fixedDeltaTime;
             grounded = false;
+
             rb2d.AddForce(Vector2.up * constantJumpForce + Vector2.right, ForceMode2D.Force);
             if (xVelocityWhileHoldSpace)
             {
@@ -207,8 +165,7 @@ public class ZombieMovement : MonoBehaviour
     {
         if (aircontroll)
         {
-            float inputKeyMouse = mousePosition.x * airRotationSpeedMouse + inputAxis * airRotationSpeedKey;
-            transform.rotation *= Quaternion.Euler(0, 0, inputKeyMouse * Time.fixedDeltaTime);
+            transform.rotation *= Quaternion.Euler(0, 0, axis * Time.fixedDeltaTime);
         }
         else
         {
@@ -231,21 +188,8 @@ public class ZombieMovement : MonoBehaviour
             FixedJoint2D joint = gameObject.AddComponent<FixedJoint2D>();
             joint.connectedBody = otherBody;
             spawner.SpawnZombie();
+
             Destroy(gameObject.GetComponent<ZombieMovement>());
         }
     }
-
-    /*
-        bool GroundCheck()
-        {
-            //Hit self
-            // Collider2D[] colliderHit = Physics2D.OverlapCapsule(transform.position, new Vector2(1.1f, 0.55f), transform.GetComponent<CapsuleCollider2D>().direction, transform.rotation.z);
-            if (Physics2D.OverlapCapsule(transform.position, new Vector2(1.1f, 0.55f), transform.GetComponent<CapsuleCollider2D>().direction, transform.rotation.z))
-            {
-                print("CheckOverlap");
-                return true;
-            }
-            return false;
-        }
-    */
 }
