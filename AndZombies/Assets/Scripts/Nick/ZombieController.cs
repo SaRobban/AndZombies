@@ -5,11 +5,26 @@ using UnityEngine.InputSystem;
 
 public class ZombieController : MonoBehaviour
 {
+    public static ZombieController Instance { get { return instance; } }
+    private static ZombieController instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this);
+        }
+    }
+
     // this script is used for controlling zombies, 
     // managing the input, 
     // and getting a new zombie after the previous zombie got set in place
 
-    
+
     [Header("Alternating Values")]
     public GameObject currentZombie; // the current zombie to control
     public float freezeTimer = 0; // the timer before the next zombie spawns
@@ -41,7 +56,7 @@ public class ZombieController : MonoBehaviour
         }
     }
 
-    private void SpawnZombie()
+    public void SpawnZombie()
     {
         // get a zombie from the pool, activate it and set it at the spawn position
         // add 1 to spawned zombies count

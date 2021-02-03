@@ -47,6 +47,8 @@ public class ZombieMovement : MonoBehaviour
             {
                 rb2d.constraints = onHitAfterJump;
             }
+
+            ZombieController.Instance.SpawnZombie();
         }
         if (rb2d.velocity.y < 0)
         {
