@@ -35,7 +35,10 @@ public class ZombieController : MonoBehaviour
     {
         Timer();
 
-        zombieMovementScript.InputControls(inputAxis, jump);
+        if (zombieMovementScript != null)
+        {
+            zombieMovementScript.InputControls(inputAxis, jump);
+        }
     }
 
     private void SpawnZombie()
