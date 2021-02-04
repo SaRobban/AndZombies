@@ -56,8 +56,8 @@ public class ZombieMovement : MonoBehaviour
                 if (contact.normal.y > groundedIfRad && Vector2.Dot( transform.up, contact.normal) > groundedIfRad) //<- if Normal.y > cos angle up
                     isGrounded = true;
 
-                if (-contact.normal.y < groundedIfRad)
-                    //   hitAWall = true;
+                if (-contact.normal.x > groundedIfRad)
+                       hitAWall = true;
 
                     Debug.DrawRay(contact.point, contact.normal * 50, Color.white, 0.5f);
             }
@@ -203,12 +203,15 @@ public class ZombieMovement : MonoBehaviour
             //Use gravityScale?
             constantJumpForce -= jumpLoss * Time.fixedDeltaTime;
 
-            rb2d.AddForce(Vector2.up * constantJumpForce + Vector2.right, ForceMode2D.Force);
-            if (xVelocityWhileHoldSpace)
+            if (constantJumpForce > 0)
             {
-                Vector2 modVel = rb2d.velocity;
-                modVel.x = walkspeed;
-                rb2d.velocity = modVel;
+                rb2d.AddForce(Vector2.up * constantJumpForce + Vector2.right, ForceMode2D.Force);
+                if (xVelocityWhileHoldSpace)
+                {
+                    Vector2 modVel = rb2d.velocity;
+                    modVel.x = walkspeed;
+                    rb2d.velocity = modVel;
+                }
             }
         }
         else
