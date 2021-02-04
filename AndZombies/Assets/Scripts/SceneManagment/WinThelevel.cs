@@ -9,6 +9,8 @@ public class WinThelevel : MonoBehaviour
     PrintToIngameUI printerUI;
     public GameObject stars;
     public ScoreCounter score;
+    public AudioSource levelCompleteSound;
+    public SoundPlayer zombieBitingSound;
 
     private void Start()
     {
@@ -22,6 +24,12 @@ public class WinThelevel : MonoBehaviour
         score = GameObject.FindObjectOfType<ScoreCounter>();
         printerUI.PrintToScore("You get To eat!\n" + score.GetAddScore() + " : Points");
         StartCoroutine(waitForRestart());
+
+        if (!levelCompleteSound.isPlaying)
+        {
+            levelCompleteSound.Play();
+            zombieBitingSound.PlaySound();
+        }
 
         Instantiate(stars, transform.position, Quaternion.identity);
     }
