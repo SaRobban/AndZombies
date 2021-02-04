@@ -207,4 +207,11 @@ public class ZombieMovement : MonoBehaviour
             joint.connectedBody = otherBody;
         }
     }
+
+
+    public void KillZombie()
+    {
+        zombieState = zombieStates.Hit;
+        ZombieController.Instance.SpawnZombie();
+    }
 }
