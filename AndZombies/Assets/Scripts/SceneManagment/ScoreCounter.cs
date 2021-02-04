@@ -27,6 +27,11 @@ public class ScoreCounter : MonoBehaviour
     // Start is called before the first frame update
     public int GetScore()
     {
+        return score;
+    }
+
+    public int GetAddScore()
+    {
         zC = GameObject.FindObjectOfType<ZombieController>();
         int zombieScore = zC.maxZombieCount - zC.spawnedZombies;
         score += zombieScore;
