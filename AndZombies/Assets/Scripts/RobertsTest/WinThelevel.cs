@@ -8,9 +8,12 @@ public class WinThelevel : MonoBehaviour
     public float timeToRestart = 3;
     public GameObject stars;
 
+    public ScoreCounter score;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("You get To eat!");
+        score = GameObject.FindObjectOfType<ScoreCounter>();
+        Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("You get To eat!\n" + score.GetScore() + " : Points");
         StartCoroutine(waitForRestart());
 
         Instantiate(stars, transform.position, Quaternion.identity);
