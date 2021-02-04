@@ -86,7 +86,7 @@ public class ZombieAnimationControll : MonoBehaviour
                 animJump = false;
                 animFall = false;
                 setAnimation();
-                print("AnimHit");
+                //print("AnimHit");
                 break;
 
             default:
