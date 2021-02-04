@@ -228,7 +228,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882545023806723374}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25, y: -0.25, z: 0}
+  m_LocalPosition: {x: -0.25, y: -0.5, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 5680561421144758929}
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentObj: {fileID: 5680561421144758929}
-  offsett: {x: 0.2, y: -0.25}
+  offsett: {x: 0.2, y: -0.5}
 --- !u!50 &9067891709056337384
 Rigidbody2D:
   serializedVersion: 4
@@ -720,8 +720,8 @@ MonoBehaviour:
   xVelocityWhileHoldSpace: 1
   aircontroll: 1
   initJumpForce: 5
-  constantJumpForce: 5
-  jumpLoss: 5
+  constantJumpForce: 10
+  jumpLoss: 20
   walkspeed: 5
   airRotationSpeedKey: 60
   onWalking: 4
@@ -755,7 +755,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6353848967437944037}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: -0.25, z: 0}
+  m_LocalPosition: {x: 0.25, y: -0.5, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 5680561421144758929}
@@ -823,7 +823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentObj: {fileID: 5680561421144758929}
-  offsett: {x: 0.2, y: -0.25}
+  offsett: {x: 0.2, y: -0.5}
 --- !u!50 &4997628670745298377
 Rigidbody2D:
   serializedVersion: 4
@@ -1001,7 +1001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8710736440933409128}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5680561421144758929}
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentObj: {fileID: 5680561421144758929}
-  offsett: {x: 0, y: 0.5}
+  offsett: {x: 0, y: 1}
 --- !u!50 &6801560878096868519
 Rigidbody2D:
   serializedVersion: 4

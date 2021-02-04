@@ -19,6 +19,7 @@ public class ZombieMovement : MonoBehaviour
     [Header("Tweeks")]
     public float initJumpForce = 5f;
     public float constantJumpForce = 5f;
+    private float orgConstJumpForce;
     public float jumpLoss = 5f;
     public float walkspeed = 5f;
 
@@ -50,7 +51,7 @@ public class ZombieMovement : MonoBehaviour
             //Check if grounded by Cos angels
             foreach (ContactPoint2D contact in collision.contacts)
             {
-                if (contact.normal.y > groundedIfAngle)
+                if (contact.normal.y > groundedIfAngle && transform.up.y > groundedIfAngle) //<- if Normal.y > cos angle up
                     isGrounded = true;
 
                 if (contact.normal.x < -hitAWallAngle)
@@ -109,6 +110,8 @@ public class ZombieMovement : MonoBehaviour
         //Grunded test
         groundedIfAngle = Mathf.Cos(groundedIfAngle);
         hitAWallAngle = Mathf.Sin(hitAWallAngle);
+
+        orgConstJumpForce = constantJumpForce;
     }
 
 
@@ -170,7 +173,9 @@ public class ZombieMovement : MonoBehaviour
     void WalkZombie()
     {
         Vector2 modVel = rb2d.velocity;
-        modVel.x = walkspeed * axis;
+
+        constantJumpForce = orgConstJumpForce;
+        modVel.x = walkspeed;// * axis; <------------------- If you want move manualy
         rb2d.velocity = modVel;
        // transform.up = Vector3.up;
 
