@@ -645,7 +645,7 @@ MonoBehaviour:
   onWalking: 4
   onJumping: 4
   onHitAfterJump: 0
-  groundedIfAngle: 0.3925
+  groundedIfRad: 45
   hitAWallAngle: 4505
 --- !u!1 &6353848967437944037
 GameObject:

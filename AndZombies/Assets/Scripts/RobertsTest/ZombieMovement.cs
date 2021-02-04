@@ -47,12 +47,12 @@ public class ZombieMovement : MonoBehaviour
         //IF we made are jumping or falling but not holding the jumpbutton...
         //We stick to whatever hit by adding a joint or freeze the constraints...
         //Then Spawn new zombie (if we havent already).
-        if (zombieState == zombieStates.Fall || zombieState == zombieStates.Jump && !jump)
+       // if (zombieState == zombieStates.Fall || zombieState == zombieStates.Jump && !jump)
+        if(zombieState!=zombieStates.Hit && !jump)
         {
             //Check if grounded by Cos angels
             foreach (ContactPoint2D contact in collision.contacts)
             {
-
                 if (contact.normal.y > groundedIfRad && Vector2.Dot( transform.up, contact.normal) > groundedIfRad) //<- if Normal.y > cos angle up
                     isGrounded = true;
 
