@@ -15,7 +15,7 @@ public class ZombieMovement : MonoBehaviour
     [Header("GamplayOptions")]
     public bool xVelocityWhileHoldSpace;
     public bool aircontroll = true;
-    
+
     [Header("Tweeks")]
     public float initJumpForce = 5f;
     public float constantJumpForce = 5f;
@@ -33,9 +33,9 @@ public class ZombieMovement : MonoBehaviour
     public RigidbodyConstraints2D onJumping;
     public RigidbodyConstraints2D onHitAfterJump;
 
-    [Header ("Grounded Test")]
-    float groundedIfAngle = 45;
-    float hitAWallAngle = 45;
+    [Header("Grounded Test")]
+    public float groundedIfRad = 45;
+    public float hitAWallAngle = 45;
     private bool isGrounded;
     private bool hitAWall;
     private bool calledIe;
@@ -52,32 +52,35 @@ public class ZombieMovement : MonoBehaviour
             //Check if grounded by Cos angels
             foreach (ContactPoint2D contact in collision.contacts)
             {
-                if (contact.normal.y > groundedIfAngle && transform.up.y > groundedIfAngle) //<- if Normal.y > cos angle up
+
+                if (contact.normal.y > groundedIfRad && transform.up.y > groundedIfRad) //<- if Normal.y > cos angle up
                     isGrounded = true;
 
-                if (contact.normal.x < -hitAWallAngle)
-                    hitAWall = true;
+                if (-contact.normal.y < groundedIfRad)
+                    //   hitAWall = true;
 
-                //Debug.DrawRay(contact.point, contact.normal*50, Color.white,0.1f);
+                    Debug.DrawRay(contact.point, contact.normal * 50, Color.white, 0.5f);
             }
-            StartCoroutine(AddLinkToColliderOrRise(collision.collider.gameObject));
+            if (!calledIe)
+                StartCoroutine(AddLinkToColliderOrRise(collision.collider.gameObject));
             calledIe = true;
         }
     }
     IEnumerator AddLinkToColliderOrRise(GameObject otherObj)
     {
         yield return null;
-       
-        if(isGrounded && !hitAWall)
+
+        if (isGrounded && !hitAWall)
         {
             zombieState = zombieStates.Walk;
-            Debug.DrawRay(transform.position, Vector3.up, Color.green, Time.fixedDeltaTime);
+            Debug.DrawRay(transform.position, Vector3.up * 50, Color.green, Time.fixedDeltaTime * 25);
         }
         else
         {
-            
-            Debug.DrawRay(transform.position, Vector3.up, Color.red, Time.fixedDeltaTime);
-            
+            if (hitAWall)
+                Debug.DrawRay(transform.position, Vector3.up * 50, Color.yellow, Time.fixedDeltaTime * 25);
+            else
+                Debug.DrawRay(transform.position, Vector3.up * 50, Color.red, Time.fixedDeltaTime * 25);
             if (otherObj.gameObject.GetComponent<Rigidbody2D>())
             {
                 AddJoint(otherObj.gameObject.GetComponent<Rigidbody2D>());
@@ -92,7 +95,7 @@ public class ZombieMovement : MonoBehaviour
                 ZombieController.Instance.SpawnZombie();
                 spawnedNew = true;
             }
-            
+
             zombieState = zombieStates.Hit;
         }
         isGrounded = false;
@@ -109,8 +112,8 @@ public class ZombieMovement : MonoBehaviour
 
 
         //Grunded test
-        groundedIfAngle = Mathf.Cos(groundedIfAngle);
-        hitAWallAngle = Mathf.Sin(hitAWallAngle);
+        groundedIfRad = Mathf.Cos(groundedIfRad);
+        hitAWallAngle = Mathf.Cos(groundedIfRad);
 
         orgConstJumpForce = constantJumpForce;
     }
@@ -178,7 +181,7 @@ public class ZombieMovement : MonoBehaviour
         constantJumpForce = orgConstJumpForce;
         modVel.x = walkspeed;// * axis; <------------------- If you want move manualy
         rb2d.velocity = modVel;
-       // transform.up = Vector3.up;
+        // transform.up = Vector3.up;
 
         if (jump)
         {
@@ -238,7 +241,7 @@ public class ZombieMovement : MonoBehaviour
     //Add a Joint between two rigidbodys
     void AddJoint(Rigidbody2D otherBody)
     {
-        
+
         if (otherBody != null)
         {
             //print("Zombie Joint");
