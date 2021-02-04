@@ -1711,7 +1711,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 4.865653, y: -0.0000005506199, z: 0}
+        value: {x: 0, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -1767,6 +1767,13 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
+      path: 4168044133
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
       path: 2257196284
       attribute: 4
       script: {fileID: 0}
@@ -1852,13 +1859,6 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 15519520
-      attribute: 1
-      script: {fileID: 0}
-      typeID: 4
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 4168044133
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -2409,7 +2409,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 4.865653
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -2437,7 +2437,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.0000005506199
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
