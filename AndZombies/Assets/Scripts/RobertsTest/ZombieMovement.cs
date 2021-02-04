@@ -14,6 +14,7 @@ public class ZombieMovement : MonoBehaviour
 
     [Header("GamplayOptions")]
     public bool xVelocityWhileHoldSpace;
+    public bool xVelocityWhileHoldSpaceAndSlide;
     public bool aircontroll = true;
 
     [Header("Tweeks")]
@@ -206,6 +207,7 @@ public class ZombieMovement : MonoBehaviour
             if (constantJumpForce > 0)
             {
                 rb2d.AddForce(Vector2.up * constantJumpForce + Vector2.right, ForceMode2D.Force);
+                
                 if (xVelocityWhileHoldSpace)
                 {
                     Vector2 modVel = rb2d.velocity;
@@ -238,6 +240,13 @@ public class ZombieMovement : MonoBehaviour
         else
         {
             transform.up = rb2d.velocity;
+        }
+
+        if (xVelocityWhileHoldSpaceAndSlide)
+        {
+            Vector2 modVel = rb2d.velocity;
+            modVel.x = walkspeed;
+            rb2d.velocity = modVel;
         }
     }
 
