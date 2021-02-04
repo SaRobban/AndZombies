@@ -97,7 +97,6 @@ public class ZombieAnimationControll : MonoBehaviour
 
     void setAnimation()
     {
-        
         if(oldState != zm.zombieState)
         {
             oldState = zm.zombieState;
