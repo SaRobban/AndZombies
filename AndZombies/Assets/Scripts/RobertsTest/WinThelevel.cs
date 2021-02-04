@@ -7,7 +7,6 @@ public class WinThelevel : MonoBehaviour
 {
     public float timeToRestart = 3;
     public GameObject stars;
-
     public ScoreCounter score;
 
     private void OnTriggerEnter2D(Collider2D collision)
