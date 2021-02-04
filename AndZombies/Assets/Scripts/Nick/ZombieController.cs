@@ -85,6 +85,7 @@ public class ZombieController : MonoBehaviour
 
         {
             Debug.Log("No Zombies Left to Spawn");
+            GameObject.FindObjectOfType<PrintToIngameUI>().PrintToInfo("GAME OVER!");
             // TODO: having the game over menu show up
         }
 

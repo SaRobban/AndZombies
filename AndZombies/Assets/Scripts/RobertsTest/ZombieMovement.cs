@@ -53,7 +53,7 @@ public class ZombieMovement : MonoBehaviour
             foreach (ContactPoint2D contact in collision.contacts)
             {
 
-                if (contact.normal.y > groundedIfRad && transform.up.y > groundedIfRad) //<- if Normal.y > cos angle up
+                if (contact.normal.y > groundedIfRad && Vector2.Dot( transform.up, contact.normal) > groundedIfRad) //<- if Normal.y > cos angle up
                     isGrounded = true;
 
                 if (-contact.normal.y < groundedIfRad)
@@ -112,8 +112,8 @@ public class ZombieMovement : MonoBehaviour
 
 
         //Grunded test
-        groundedIfRad = Mathf.Cos(groundedIfRad);
-        hitAWallAngle = Mathf.Cos(groundedIfRad);
+        groundedIfRad = (groundedIfRad) * Mathf.Deg2Rad;
+        hitAWallAngle = Mathf.PI - (groundedIfRad);
 
         orgConstJumpForce = constantJumpForce;
     }
