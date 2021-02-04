@@ -39,9 +39,13 @@ public class ZombieController : MonoBehaviour
     [Header("Internal Values")]
     private SimpleObjectPool zombiePool;
     private ZombieMovement zombieMovementScript;
+    private SoundPlayer jumpSoundPlayer;
+    private SoundPlayer groanSoundPlayer;
 
     private void Start()
     {
+        jumpSoundPlayer = GetComponentsInChildren<SoundPlayer>()[0];
+        groanSoundPlayer = GetComponentsInChildren<SoundPlayer>()[1];
         zombiePool = new SimpleObjectPool(zombiePrefab, maxZombieCount);
         freezeTimer = 1;
     }
@@ -75,7 +79,7 @@ public class ZombieController : MonoBehaviour
 
             // safety measure
             zombieMovementScript.zombieState = ZombieMovement.zombieStates.Start;
-
+            groanSoundPlayer.PlaySound();
             spawnedZombies++;
 
             freezeTimer = timeBeforeFreezing;
@@ -84,6 +88,7 @@ public class ZombieController : MonoBehaviour
         else
 
         {
+            currentZombie = null;
             Debug.Log("No Zombies Left to Spawn");
             GameObject.FindObjectOfType<PrintToIngameUI>().PrintToInfo("GAME OVER!");
             // TODO: having the game over menu show up
@@ -119,6 +124,10 @@ public class ZombieController : MonoBehaviour
         if (context.performed) // jump button is pressed/held
         {
             jump = true;
+            if (!groanSoundPlayer.GetComponent<AudioSource>().isPlaying && currentZombie != null)
+            {
+                jumpSoundPlayer.PlaySound();
+            }
         }
 
         else if (context.canceled) // jump button is released
