@@ -636,7 +636,7 @@ MonoBehaviour:
   rb2d: {fileID: 0}
   zombieState: 0
   xVelocityWhileHoldSpace: 1
-  xVelocityWhileHoldSpaceAndSlide: 0
+  xVelocityWhileHoldSpaceAndSlide: 1
   aircontroll: 1
   initJumpForce: 5
   constantJumpForce: 10
