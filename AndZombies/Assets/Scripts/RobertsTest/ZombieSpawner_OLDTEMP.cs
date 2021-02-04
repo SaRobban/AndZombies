@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,3 +37,4 @@ public class ZombieSpawner_OLDTEMP : MonoBehaviour
         Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("Zombie : " + zombieNumber + " / " + maxZombies);
     }
 }
+*/

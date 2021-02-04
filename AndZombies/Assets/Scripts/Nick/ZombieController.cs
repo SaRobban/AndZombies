@@ -58,7 +58,7 @@ public class ZombieController : MonoBehaviour
 
     void PrintZombieCount()
     {
-        Camera.main.GetComponent<PrintToIngameUI>().PrintToDefault("ZombieCount : " + spawnedZombies + " / " + maxZombieCount);
+        Camera.main.GetComponent<PrintToIngameUI>().PrintToInfo("ZombieCount : " + spawnedZombies + " / " + maxZombieCount);
     }
 
     public void SpawnZombie()

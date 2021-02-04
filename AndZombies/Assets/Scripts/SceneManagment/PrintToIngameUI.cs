@@ -7,14 +7,19 @@ using TMPro;
 public class PrintToIngameUI : MonoBehaviour
 {
     public TextMeshProUGUI playerInfo;
+    public TextMeshProUGUI playerScore;
 
     private void Start()
     {
-        //Camera.main.GetComponent<Resorces>().printToUI = this;
     }
     // Start is called before the first frame update
-    public void PrintToDefault(string text)
+    public void PrintToInfo(string text)
     {
         playerInfo.text = text;
+    }
+
+    public void PrintToScore(string text)
+    {
+        playerScore.text = text;
     }
 }
