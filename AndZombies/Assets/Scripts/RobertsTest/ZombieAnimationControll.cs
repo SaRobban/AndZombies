@@ -24,6 +24,9 @@ public class ZombieAnimationControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SetAnimState();
+    }
+    public void SetAnimState() { 
         switch (zm.zombieState)
         {
             case ZombieMovement.zombieStates.Start:
@@ -78,11 +81,12 @@ public class ZombieAnimationControll : MonoBehaviour
 
             case ZombieMovement.zombieStates.Hit:
                 //PUT CODE FOR ANIMATIONHERE
-                animIdle = false;
+                animIdle = true;
                 animWalk = false;
                 animJump = false;
-                animFall = true;
+                animFall = false;
                 setAnimation();
+                print("AnimHit");
                 break;
 
             default:

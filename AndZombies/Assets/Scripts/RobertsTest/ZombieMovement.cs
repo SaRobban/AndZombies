@@ -35,6 +35,7 @@ public class ZombieMovement : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+
         //IF we made are jumping or falling but not holding the jumpbutton...
         //We stick to whatever hit by adding a joint or freeze the constraints...
         //Then Spawn new zombie (if we havent already).
