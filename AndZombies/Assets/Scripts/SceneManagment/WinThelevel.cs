@@ -12,6 +12,8 @@ public class WinThelevel : MonoBehaviour
     public AudioSource levelCompleteSound;
     public SoundPlayer zombieBitingSound;
 
+    public GameObject musicPlayer;
+
     private void Start()
     {
         printerUI = GameObject.FindObjectOfType<PrintToIngameUI>();
@@ -38,6 +40,17 @@ public class WinThelevel : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToRestart);
         
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (SceneManager.GetActiveScene().buildIndex != 3)
+        {
+            SceneManager.LoadScene(SceneManager.GetSceneAt(SceneManager.GetActiveScene().buildIndex + 1).name);
+        }
+
+        else
+        {
+            musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer");
+
+            Destroy(musicPlayer);
+            SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
+        }
     }
 }
