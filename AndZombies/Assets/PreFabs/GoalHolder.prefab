@@ -117,7 +117,7 @@ MonoBehaviour:
   timeToRestart: 3
   stars: {fileID: 4495500815892997668, guid: 4076e04ff42e9e04f8e1c8adf611b82d, type: 3}
   score: {fileID: 0}
-  levelCompleteSound: {fileID: 370047142270368691}
+  levelCompleteSound: {fileID: 442634734112896366}
   zombieBitingSound: {fileID: 5404417756198108541}
 --- !u!1001 &258180654028216009
 PrefabInstance:
@@ -254,8 +254,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5312938615052174360, guid: 0cde5d146da217142aa904261137735c, type: 3}
   m_PrefabInstance: {fileID: 6498396980086485703}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &370047142270368691 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6848948595214436724, guid: 0cde5d146da217142aa904261137735c, type: 3}
+--- !u!114 &442634734112896366 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6632250211459319721, guid: 0cde5d146da217142aa904261137735c, type: 3}
   m_PrefabInstance: {fileID: 6498396980086485703}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9be9234dd9825544a31726e96bdb0af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

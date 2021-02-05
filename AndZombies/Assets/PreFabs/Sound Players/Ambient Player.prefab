@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5958247692429109621}
   - component: {fileID: 4906937076668818457}
+  - component: {fileID: 5486123360840005967}
   m_Layer: 0
   m_Name: Ambient Player
   m_TagString: Untagged
@@ -127,3 +128,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5486123360840005967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5114027164132212457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9be9234dd9825544a31726e96bdb0af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips: []

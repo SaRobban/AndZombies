@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class KeepActive : MonoBehaviour
 {
-    // all this does is making sure there only is one Input Manager script in the scene.
-
     public static KeepActive Instance { get { return instance; } }
     private static KeepActive instance;
 
@@ -17,7 +15,7 @@ public class KeepActive : MonoBehaviour
         }
         else if (instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 

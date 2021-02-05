@@ -22,10 +22,10 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Mouse Position",
-                    "type": "Value",
+                    "name": "Escape",
+                    "type": "Button",
                     "id": "7234258a-a175-43b5-9fcd-c8c0203d9672",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
@@ -64,11 +64,11 @@
                 {
                     "name": "",
                     "id": "9052d161-f4ca-4519-b089-93e6899befff",
-                    "path": "<Mouse>/position",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouse Position",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

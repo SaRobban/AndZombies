@@ -9,10 +9,8 @@ public class WinThelevel : MonoBehaviour
     PrintToIngameUI printerUI;
     public GameObject stars;
     public ScoreCounter score;
-    public AudioSource levelCompleteSound;
+    public SoundPlayer levelCompleteSound;
     public SoundPlayer zombieBitingSound;
-
-    public GameObject musicPlayer;
 
     private void Start()
     {
@@ -27,9 +25,9 @@ public class WinThelevel : MonoBehaviour
         printerUI.PrintToScore("You get To eat!\n" + score.GetAddScore() + " : Points");
         StartCoroutine(waitForRestart());
 
-        if (!levelCompleteSound.isPlaying)
+        if (!levelCompleteSound.GetComponent<AudioSource>().isPlaying)
         {
-            levelCompleteSound.Play();
+            levelCompleteSound.PlaySound();
             zombieBitingSound.PlaySound();
         }
 
@@ -42,15 +40,15 @@ public class WinThelevel : MonoBehaviour
         
         if (SceneManager.GetActiveScene().buildIndex != 3)
         {
-            SceneManager.LoadScene(SceneManager.GetSceneAt(SceneManager.GetActiveScene().buildIndex + 1).name);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         else
         {
-            musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer");
+            GameObject musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer");
 
             Destroy(musicPlayer);
-            SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
+            SceneManager.LoadScene(0);
         }
     }
 }

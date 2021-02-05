@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Stick
   - AlwaysWalk
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX

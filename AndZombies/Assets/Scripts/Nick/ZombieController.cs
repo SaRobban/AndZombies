@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class ZombieController : MonoBehaviour
 {
@@ -145,11 +146,14 @@ public class ZombieController : MonoBehaviour
         inputAxis = context.ReadValue<float>();
     }
 
-    Vector2 mousePosition;
-
-    public void GetMousePosition(InputAction.CallbackContext context)
+    public void ReturnToMainMenu(InputAction.CallbackContext context)
     {
-        // get the vector2 of the mouse
-        mousePosition = context.ReadValue<Vector2>();
+        if (context.performed)
+        {
+            GameObject musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer");
+
+            Destroy(musicPlayer);
+            SceneManager.LoadScene(0);
+        }
     }
 }

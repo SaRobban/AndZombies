@@ -9,18 +9,34 @@ public class SoundPlayer : MonoBehaviour
 
     private AudioSource audioSource;
 
-    private void Start()
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+
+        if (audioClips.Count == 0)
+        {
+            audioSource.volume = SettingMenu.Instance.GetVolume();
+            audioSource.Play();
+        }
+    }
+
     public void PlaySound()
     {
+        audioSource.volume = SettingMenu.Instance.GetVolume();
+
         if (!audioSource.isPlaying)
         {
-            AudioClip clip = audioClips[Random.Range(0, audioClips.Count)];
+            if (audioClips.Count != 0)
+            {
+                AudioClip clip = audioClips[Random.Range(0, audioClips.Count)];
 
-            audioSource.clip = clip;
+                audioSource.clip = clip;
+            }
+
             audioSource.Play();
         }
     }
